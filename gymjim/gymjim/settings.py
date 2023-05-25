@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'gymjim.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': '127.0.0.1',
         'NAME': 'final1',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'postgres',
         'PASSWORD': 'coderslab',
-        'HOST': '127.0.0.1',
     }
 }
 
