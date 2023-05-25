@@ -54,7 +54,7 @@ class Contact(models.Model):
     opening_hours=models.CharField(max_length=100, default='')
 
     def __str__(self):
-        return self.email
+        return str(self.email)
 
 
 class Enroll(models.Model):
@@ -63,4 +63,4 @@ class Enroll(models.Model):
     date=models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.date
+        return str(self.user)
