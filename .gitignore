@@ -1,8 +1,0 @@
-*.log
-*.pot
-*.pyc
-__pycache__
-media
-.env
-.venv
-.idea
