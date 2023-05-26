@@ -50,8 +50,9 @@ class Trainer(models.Model):
 class Contact(models.Model):
     email=models.EmailField(default='')
     phone=models.CharField(max_length=20, default='')
-    address=models.CharField(max_length=200, default='')
-    opening_hours=models.CharField(max_length=100, default='')
+    #address=models.CharField(max_length=200, default='')
+    #opening_hours=models.CharField(max_length=100, default='')
+    message=models.TextField()
 
     def __str__(self):
         return str(self.email)
