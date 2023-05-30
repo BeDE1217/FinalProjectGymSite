@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser, User
 from django.utils import timezone
 
 
@@ -9,7 +9,7 @@ class News(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 
 class Exercise(models.Model):
@@ -17,7 +17,7 @@ class Exercise(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Schedule(models.Model):
@@ -27,7 +27,7 @@ class Schedule(models.Model):
     time = models.TimeField()
 
     def __str__(self):
-        return self.gym_class
+        return str(self.gym_class)
 
 
 class Price(models.Model):
@@ -35,7 +35,7 @@ class Price(models.Model):
     amount = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Trainer(models.Model):
@@ -44,7 +44,7 @@ class Trainer(models.Model):
     classes = models.ManyToManyField(Exercise, through='Schedule')
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Contact(models.Model):
@@ -58,9 +58,16 @@ class Contact(models.Model):
 
 
 class Enroll(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, default=None)
     date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.user)
+
+
+class Account(User):
+
+    def __str__(self):
+        return str(self.name)
+

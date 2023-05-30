@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cennik</title>
+</head>
+<body>
+    <h1> Cennik:</h1>
+    <table>
+        <thead>
+            <tr>
+                <th> Zajęcia:</th>
+                <th> Cena:   </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prices in prices %}
+            <tr>
+                <td> {{price.name}}</td>
+                <td>{{price.amount}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

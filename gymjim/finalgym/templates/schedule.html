@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grafik Zajęć w GYMJIM</title>
+</head>
+<body>
+    <h1>Grafik Zajęć:</h1>
+    <table>
+        <thead>
+            <tr>
+                <th> Zajęcia</th>
+                <th> Trener </th>
+                <th> Data</th>
+                <th> Godzina </th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for entry in schedule %}
+            <tr>
+                <td>{{entry.gym_class.name}}</td>
+                <td>{{entry.trainer.name}}</td>
+                <td>{{entry.day}}</td>
+                <td> {{entry.time}}</td>
+                <td>
+                    {% if entry.gym_class.id not in enroll_exercise.ids %}
+                    <form method="POST" action="{url 'enroll'%">
+                        {% csrf_token %}
+                        <input type="hidden" name="exercise_id" value="{{ entry.gym_class.id}}">
+                        <button type="submit"> Zapisz się na zajęcia!</button>
+                    </form>
+                    {%else%}
+                        Jesteś już zapisany/a
+                    {%endif%}
+                </td>
+            </tr>
+                    {%endfor%}
+        </tbody>
+    </table>
+</body>
+</html>

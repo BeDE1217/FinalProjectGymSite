@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nasza Kadra Trenerska:</title>
+</head>
+<body>
+    <h1> Trenerzy:</h1>
+    <ul>
+        {%for trainer in trainers %}
+        <li>
+            <h2>{{trainer.name}}</h2>
+            <p>{{trainer.bio}}</p>
+            <h2> Zajęcia:</h2>
+            <ul>
+                {%for exercises in trainer.class.all %}
+                <li>{{exercise.name}}</li>
+                {%endfor%}
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>
