@@ -3,6 +3,43 @@ from django.views import View
 from .models import News, Contact, Price, Trainer, Schedule, Enroll, Exercise
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
+
+def logout_view(request):
+    logout(request)
+    login_url= reverse('home')
+    return redirect(login_url)
+
+
+def home(request):
+    return render(request, 'home.html')
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            error_message='Niepoprawny username bądz password'
+            return render(request, 'login.html', {'error_message': error_message})
+    return render(request, 'login.html')
+
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html',{'form': form})
 
 
 def newslist(request):
@@ -42,25 +79,23 @@ def trainerslist(request):
     trainers= Trainer.objects.all()
     return render(request,'trainers.html', {'trainers': trainers})
 
-@login_required
+
 def schedule_view(request):
-    schedule = Schedule.objects.all()
-    enroll_exercises= Enroll.objects.filter(user=request.user)
-    enroll_exercise_ids= [enroll.exercise.id for enroll in enroll_exercises]
-    return render(request, 'schedule.html', {'schedule': schedule,'enroll_exercies_ids': enroll_exercise_ids})
+    schedule= Schedule.objects.all()
+    return render(request, 'schedule.html',{'schedule': schedule})
+
 
 @login_required
-def enroll(request):
-   if request.method == 'POST':
-       exercise_id = request.POST.get('exercise_id')
-       exercise= Exercise.objects.get(id=exercise_id)
-       is_enrolled= Enroll.objects.filter(user=request.user, exercise=exercise). exists()
+def enroll(request,exercise_id):
+   exercise = Exercise.objects.get(id=exercise_id)
+   is_enrolled = Enroll.objects.filter(user=request.user, exercise=exercise).exists()
 
-       if is_enrolled:
-           message = "Jesteś już zapisany/a na zajęcia!"
-       else:
-           Enroll.objects.create(user=request.user, exercise=exercise)
-           message= "Zostałeś/aś zapisany/a na zajecią!"
-       return render(request, 'enroll.html', {'message': message})
+   if is_enrolled:
+       message = "Jestes już zapisany/a na zajęcia!"
+   else:
+       Enroll.objects.create(user=request.user, exercise=exercise)
+       message = "Zostałeś/aś zapisany/a na zajęcia!"
 
-   return redirect('schedule_view')
+   return render(request, 'enroll.html', {'message': message})
+
+

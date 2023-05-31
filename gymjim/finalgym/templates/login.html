@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GymJIM- Strona Logowania- Log in</title>
+</head>
+<body>
+  <h1> Zaloguj się do GYMJIM/ Log in GYMJIM</h1>
+  {% if error_message %}
+        <p>{{ error_message }}</p>
+  {% endif %}
+  <form method="POST">
+    {% csrf_token %}
+    <label for="username"> Username:</label>
+    <input type="text" id="username" name="username" required><br>
+
+    <label for="password"> Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <input type="submit" value="Log in">
+  </form>
+</body>
+</html>

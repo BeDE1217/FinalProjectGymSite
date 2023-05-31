@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rejstracja- Sign up- GYMJIM</title>
+</head>
+<body>
+    <h1> Create a New Account</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Sign up">
+    </form>
+</body>
+</html>

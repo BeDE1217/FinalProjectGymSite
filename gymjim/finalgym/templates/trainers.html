@@ -7,17 +7,18 @@
 <body>
     <h1> Trenerzy:</h1>
     <ul>
-        {%for trainer in trainers %}
+        {% for trainer in trainers %}
         <li>
-            <h2>{{trainer.name}}</h2>
-            <p>{{trainer.bio}}</p>
-            <h2> Zajęcia:</h2>
+            <h2>{{ trainer.name }}</h2>
+            <p>{{ trainer.bio }}</p>
+            <h2> Zajęcia z trenerami:</h2>
             <ul>
-                {%for exercises in trainer.class.all %}
-                <li>{{exercise.name}}</li>
-                {%endfor%}
+                {% for exercise in trainer.classes.all %}
+                <l1>{{ exercise.name }}</l1>
+                {% endfor %}
             </ul>
         </li>
+        {% endfor %}
     </ul>
 </body>
 </html>
