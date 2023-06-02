@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import News, Contact, Price, Trainer, Schedule, Enroll, Exercise
+from .models import News, Contact, Price, Trainer, Schedule, Enroll, Exercise, Message, Account
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+
 
 def logout_view(request):
     logout(request)
@@ -98,4 +99,9 @@ def enroll(request,exercise_id):
 
    return render(request, 'enroll.html', {'message': message})
 
+
+# @login_required
+# def user_profile(request):
+#     user = request.user
+#     messages = Message.objects.filter(recipient=user)
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import News, Schedule, Exercise, Price, Enroll, Contact, Trainer
+from .models import News, Schedule, Exercise, Price, Enroll, Contact, Trainer, Message
 
 admin.site.register(News)
 
@@ -14,3 +14,5 @@ admin.site.register(Enroll)
 admin.site.register(Contact)
 
 admin.site.register(Trainer)
+
+admin.site.reguster(Message)
