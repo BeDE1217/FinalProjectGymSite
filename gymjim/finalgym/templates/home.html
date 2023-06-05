@@ -9,6 +9,7 @@
     {%if user.is_authenticated %}
         <p>Zalogowano jako: {{ request.user.username}}</p>
         <a href="{% url 'logout'%}">Wyloguj</a>
+    <p><a href="{% url 'user_profile'%}"> User Profile</a></p>
     {% else %}
         <p> Zaloguj się lub stworz konto/ Log in or create a new account</p>
         <p><a href="{% url 'login' %}"> Log in/ Zaloguj sie</a></p>

@@ -10,7 +10,7 @@ from django.urls import reverse
 
 def logout_view(request):
     logout(request)
-    login_url= reverse('home')
+    login_url = reverse('home')
     return redirect(login_url)
 
 
@@ -44,13 +44,11 @@ def signup_view(request):
 
 
 def newslist(request):
-
     news = News.objects.all()
     return render(request, 'news_list.html', {'news': news})
 
 
 def contact_view(request):
-
     if request.method == 'POST':
         email = request.POST.get('email')
         phone = request.POST.get('phone')
@@ -60,7 +58,6 @@ def contact_view(request):
         contact = Contact.objects.create(email=email, phone=phone, topic=topic, message=message)
 
         return render(request,'contact success.html')
-
 
     phonenumber = "tel: +48 123 456 786"
     bankaccount = " 4503 34560 3560 33556 35501"
@@ -77,31 +74,45 @@ def priceslist(request):
 
 
 def trainerslist(request):
-    trainers= Trainer.objects.all()
+    trainers = Trainer.objects.all()
     return render(request,'trainers.html', {'trainers': trainers})
 
 
 def schedule_view(request):
-    schedule= Schedule.objects.all()
+    schedule = Schedule.objects.all()
     return render(request, 'schedule.html',{'schedule': schedule})
 
 
 @login_required
 def enroll(request,exercise_id):
-   exercise = Exercise.objects.get(id=exercise_id)
-   is_enrolled = Enroll.objects.filter(user=request.user, exercise=exercise).exists()
+    exercise = Exercise.objects.get(id=exercise_id)
+    is_enrolled = Enroll.objects.filter(user=request.user, exercise=exercise).exists()
 
-   if is_enrolled:
-       message = "Jestes już zapisany/a na zajęcia!"
-   else:
-       Enroll.objects.create(user=request.user, exercise=exercise)
-       message = "Zostałeś/aś zapisany/a na zajęcia!"
+    if is_enrolled:
+        message = "Jestes już zapisany/a na zajęcia!"
 
-   return render(request, 'enroll.html', {'message': message})
+    else:
+        Enroll.objects.create(user=request.user, exercise=exercise)
+        message = "Zostałeś/aś zapisany/a na zajęcia!"
+
+    return render(request, 'enroll.html', {'message': message})
 
 
-# @login_required
-# def user_profile(request):
-#     user = request.user
-#     messages = Message.objects.filter(recipient=user)
+@login_required
+def user_profile(request):
+    user = request.user
+    exercises = Exercise.objects.filter(enroll__user=user)
+    messages = Message.objects.filter(recipient=user)
 
+    if request.method == 'POST':
+        exercise_id = request.POST.get('exercise_id')
+        enroll = Enroll.objects.get(user=user, exercise_id=exercise_id)
+        enroll.delete()
+        return redirect(reverse('user_profile'))
+
+    context = {
+        'exercises': exercises,
+        'messages': messages,
+    }
+
+    return render(request, 'user_profile.html', context)

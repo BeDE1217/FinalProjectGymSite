@@ -15,4 +15,4 @@ admin.site.register(Contact)
 
 admin.site.register(Trainer)
 
-admin.site.reguster(Message)
+admin.site.register(Message)
