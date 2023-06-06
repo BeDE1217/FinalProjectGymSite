@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Rejstracja- Sign up- GYMJIM</title>
+    <title>Sign up- GYMJIM</title>
 </head>
 <body>
     <h1> Create a New Account</h1>
@@ -10,7 +10,7 @@
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Sign up">
-        <a href="{% url 'home'%}">Home page</a>
+        <p> <a href="{% url 'home'%}">Home page</a></p>
     </form>
 </body>
 </html>

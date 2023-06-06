@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nasza Kadra Trenerska:</title>
+    <title>Our crew:</title>
 </head>
 <body>
-    <h1> Trenerzy:</h1>
+    <h1> Coaches:</h1>
     <ul>
         {% for trainer in trainers %}
         <li>
             <h2>{{ trainer.name }}</h2>
             <p>{{ trainer.bio }}</p>
-            <h2> Zajęcia z trenerami:</h2>
+            <h2> Classes with coaches:</h2>
             <ul>
                 {% for exercise in trainer.classes.all %}
                 <l1>{{ exercise.name }}</l1>

@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GYM JIM Strona domowa</title>
+    <title>GYM JIM Home Page</title>
 </head>
 <body>
-    <h1> Witaj w GymJIM</h1>
+    <h1> Welcome at GymJIM</h1>
     {%if user.is_authenticated %}
-        <p>Zalogowano jako: {{ request.user.username}}</p>
-        <a href="{% url 'logout'%}">Wyloguj</a>
+        <p>Logged in as: {{ request.user.username}}</p>
+        <a href="{% url 'logout'%}">Log out</a>
     <p><a href="{% url 'user_profile'%}"> User Profile</a></p>
     {% else %}
-        <p> Zaloguj się lub stworz konto/ Log in or create a new account</p>
-        <p><a href="{% url 'login' %}"> Log in/ Zaloguj sie</a></p>
-        <p><a href="{% url 'signup' %}"> Sign up/ Zarejestruj się </a></p>
+        <p>  Log in or create a new account</p>
+        <p><a href="{% url 'login' %}"> Log in</a></p>
+        <p><a href="{% url 'signup' %}"> Sign up </a></p>
     {% endif%}
-    <p><a href="{% url 'newslist'%}"> News/ Aktualności</a></p>
-    <p><a href="{% url 'contact_view'%}">Kontakt</a></p>
-    <p><a href="{% url 'schedule_view'%}">Schedule/ Grafik </a></p>
-    <p><a href="{% url 'trainerslist'%}"> Kadra Trenerska </a></p>
+    <p><a href="{% url 'newslist'%}"> News</a></p>
+    <p><a href="{% url 'contact_view'%}">Contact</a></p>
+    <p><a href="{% url 'schedule_view'%}">Schedule</a></p>
+    <p><a href="{% url 'trainerslist'%}"> Our crew</a></p>
+    <p><a href="{% url 'priceslist'%}"> Prices</a></p>
 </body>
 </html>

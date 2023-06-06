@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import News, Contact, Price, Trainer, Schedule, Enroll, Exercise, Message, Account
+from .models import News, Contact, Price, Trainer, Schedule, Enroll, Exercise, Message
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -27,7 +27,7 @@ def login_view(request):
             login(request, user)
             return redirect('home')
         else:
-            error_message='Niepoprawny username bądz password'
+            error_message='Invalid username or password!'
             return render(request, 'login.html', {'error_message': error_message})
     return render(request, 'login.html')
 
@@ -89,11 +89,11 @@ def enroll(request,exercise_id):
     is_enrolled = Enroll.objects.filter(user=request.user, exercise=exercise).exists()
 
     if is_enrolled:
-        message = "Jestes już zapisany/a na zajęcia!"
+        message = "You are already registred for classes!"
 
     else:
         Enroll.objects.create(user=request.user, exercise=exercise)
-        message = "Zostałeś/aś zapisany/a na zajęcia!"
+        message = "You have been enrolled for classes!"
 
     return render(request, 'enroll.html', {'message': message})
 

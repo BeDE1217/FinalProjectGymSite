@@ -2,28 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Kontakt</title>
+    <title>CONTACT PAGE</title>
 </head>
 <body>
     <h1> Kontakt</h1>
-        <h2> Dane klubu:</h2>
-         <h3>Numer kontaktowy klubu:</h3> <p>{{phonenumber}}</p>
-        <h3> Nasz adres email:</h3>       <p> {{emailgym}}</p>
-        <h3> Nasz numer konta bankowego:</h3><p>{{bankaccount}}</p>
-        <h3>Nasz adres:</h3>                 <p>  {{address}}</p>
+        <h2> Gym data:</h2>
+         <h3>Gym contact number:</h3> <p>{{phonenumber}}</p>
+        <h3> Our email address:</h3>       <p> {{emailgym}}</p>
+        <h3> Our bank account number:</h3><p>{{bankaccount}}</p>
+        <h3>Gym address:</h3>                 <p>  {{address}}</p>
 
     <form method="POST">
       {% csrf_token %}
-        <label for="email"> Twój email:</label>
+        <label for="email"> Your email:</label>
         <input type="email" id="email" name="email" required><br>
 
-        <label for="phone"> Twój numer telefonu:</label>
+        <label for="phone"> Your phone number:</label>
         <input type="text" id="phone" name="phone"><br>
 
-        <label for="topic"> Temat: </label>
+        <label for="topic"> Topic: </label>
         <input type="text" id="topic" name="topic" required><br>
 
-        <label for="message"> Wiadomość:</label> <br>
+        <label for="message"> Message:</label> <br>
         <textarea id="message" name="message" required></textarea><br>
 
         <input type="submit" value="Submit">

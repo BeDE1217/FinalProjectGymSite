@@ -2,27 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cennik</title>
+    <title>Prices</title>
 </head>
 <body>
-    <h1> Cennik:</h1>
+    <h1> Prcies:</h1>
     <table>
         <thead>
             <tr>
-                <th> Zajęcia:</th>
-                <th> Cena:   </th>
+                <th> Classes:</th>
+                <th> Price:   </th>
             </tr>
         </thead>
         <tbody>
-            {% for prices in prices %}
+            {% for price in prices %}
             <tr>
                 <td> {{price.name}}</td>
                 <td>{{price.amount}}</td>
             </tr>
             {% endfor %}
-        <a href="{% url 'home'%}">Home page</a>
+            <p><a href="{% url 'home'%}">Home page</a></p>
+            <p><a href="https://shorturl.at/ijxGH"> We honor Benefitsystems</a><p>
+            <p><a href="https://shorturl.at/iqxL5"> We honor Medicover Benefits</a></p>
         </tbody>
     </table>
-
 </body>
 </html>
