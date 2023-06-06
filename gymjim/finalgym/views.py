@@ -80,7 +80,7 @@ def trainerslist(request):
 
 def schedule_view(request):
     schedule = Schedule.objects.all()
-    return render(request, 'schedule.html',{'schedule': schedule})
+    return render(request, 'schedule.html', {'schedule': schedule})
 
 
 @login_required

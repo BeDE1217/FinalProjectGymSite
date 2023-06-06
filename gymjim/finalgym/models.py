@@ -22,7 +22,7 @@ class Exercise(models.Model):
 
 class Schedule(models.Model):
     gym_class = models.ForeignKey(Exercise, on_delete=models.CASCADE)
-    trainer = models.ForeignKey('Trainer',on_delete=models.CASCADE)
+    trainer = models.ForeignKey('Trainer', on_delete=models.CASCADE)
     day = models.DateField()
     time = models.TimeField()
 

@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from .models import News, Schedule, Exercise, Trainer, Enroll, Contact
+from .models import News, Schedule, Exercise, Trainer, Enroll,  Price
 from django.utils import timezone
 from django.contrib.auth.models import User
 from datetime import date, time
@@ -63,3 +63,95 @@ class SignupViewTestCase(TestCase):
         self.assertEqual(User.objects.count(), 0)
 
    
+class LoginViewTestCase(TestCase):
+    def setUp(self):
+        self.username = 'testuser'
+        self.password = 'testpass'
+        self.user = User.objects.create_user(username=self.username, password=self.password)
+
+    def test_login_with_valid_credentials(self):
+        data = {'username': self.username, 'password': self.password}
+
+        response = self.client.post(reverse('login'), data)
+        self.assertRedirects(response, reverse('home'))
+        self.assertTrue(response.wsgi_request.user.is_authenticated)
+
+    def test_login_with_invalid_credentials(self):
+        data = {'username': self.username, 'password': 'incorrect'}
+
+        response = self.client.post(reverse('login'), data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'login.html')
+        self.assertContains(response, 'Invalid username or password!')
+        self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+
+class ContactViewTestCase(TestCase):
+    def test_contact_view_with_valid_data(self):
+        data = {
+            'email': 'test@example.com',
+            'phone': '123456789',
+            'topic': 'Test Topic',
+            'message': 'Test Message'
+        }
+
+        response = self.client.post(reverse('contact_view'), data)
+        self.assertTemplateUsed(response, 'contact success.html')
+
+    def test_contact_view_with_invalid_data(self):
+        data = {
+            'email': '',
+            'phone': '',
+            'topic': '',
+            'message': ''
+        }
+
+        response = self.client.post(reverse('contact_view'), data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'contact success.html')
+
+
+class UserProfileTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+
+    def test_user_profile(self):
+        response = self.client.get(reverse('user_profile'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'user_profile.html')
+
+
+class LogoutViewTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+
+    def test_logout_view(self):
+        response = self.client.get(reverse('logout'))
+        self.assertRedirects(response, reverse('home'))
+        self.assertFalse('_auth_user_id' in self.client.session)
+
+
+class PricesListViewTestCase(TestCase):
+    def setUp(self):
+        Price.objects.create(name='Price 1', amount=10)
+        Price.objects.create(name='Price 2', amount=20)
+    def test_priceslist_view(self):
+        response = self.client.get(reverse('priceslist'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'prices.html')
+        self.assertContains(response, 'Price 1')
+        self.assertContains(response, 'Price 2')
+
+
+class TrainersViewTestCase(TestCase):
+    def setUp(self):
+        Trainer.objects.create(name='Trainer1', bio='biotest1')
+
+    def test_trainerslist_view(self):
+        response = self.client.get(reverse('trainerslist'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'trainers.html')
+        self.assertContains(response, 'Trainer1')
+        self.assertContains(response, 'biotest1')
