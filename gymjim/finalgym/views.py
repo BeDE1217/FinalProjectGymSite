@@ -9,16 +9,19 @@ from django.urls import reverse
 
 
 def logout_view(request):
+    """View function for logging out the user."""
     logout(request)
     login_url = reverse('home')
     return redirect(login_url)
 
 
 def home(request):
+    """View function for the home page."""
     return render(request, 'home.html')
 
 
 def login_view(request):
+    """View function for the login page."""
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -33,6 +36,7 @@ def login_view(request):
 
 
 def signup_view(request):
+    """View function for the signup page."""
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -44,11 +48,13 @@ def signup_view(request):
 
 
 def newslist(request):
+    """View function for displaying a list of news."""
     news = News.objects.all()
     return render(request, 'news_list.html', {'news': news})
 
 
 def contact_view(request):
+    """View function for the contact page."""
     if request.method == 'POST':
         email = request.POST.get('email')
         phone = request.POST.get('phone')
@@ -69,22 +75,26 @@ def contact_view(request):
 
 
 def priceslist(request):
+    """View function for displaying a list of prices"""
     prices = Price.objects.all()
     return render(request, 'prices.html', {'prices': prices})
 
 
 def trainerslist(request):
+    """View function for displaying a list of trainers."""
     trainers = Trainer.objects.all()
     return render(request,'trainers.html', {'trainers': trainers})
 
 
 def schedule_view(request):
+    """View function for displaying the schedule."""
     schedule = Schedule.objects.all()
     return render(request, 'schedule.html', {'schedule': schedule})
 
 
 @login_required
 def enroll(request,exercise_id):
+    """View function for enrolling in an exercise."""
     exercise = Exercise.objects.get(id=exercise_id)
     is_enrolled = Enroll.objects.filter(user=request.user, exercise=exercise).exists()
 
@@ -100,6 +110,7 @@ def enroll(request,exercise_id):
 
 @login_required
 def user_profile(request):
+    """View function for the user profile page."""
     user = request.user
     exercises = Exercise.objects.filter(enroll__user=user)
     messages = Message.objects.filter(recipient=user)
