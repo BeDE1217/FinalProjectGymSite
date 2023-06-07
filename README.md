@@ -4,7 +4,6 @@
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#featrues)
-* [Screenshots](#screenshots)
 * [Setup](#setup)
 * [Usage](#usage)
 * [Project Status](#project_status)
@@ -13,13 +12,13 @@
 * [Contact](#contact)
 
 
-General Information
+## General Information
 - The GymJIM project was to create a gym/fitness club website that would be easy to use. The presented version is the background of what a full-fledged sports club website may look like. Basic functions have been provided so further development will be based only on improving the functioning of the site.
 
 
 
 
-Technologies Used
+## Technologies Used
 - Python 3.10.6.final.0
 - PostgreSQL
 - Django Framework
